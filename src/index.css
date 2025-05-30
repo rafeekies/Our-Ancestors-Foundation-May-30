@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #00736D; /* Teal/green - colors often associated with Islam */
+  --secondary-color: #8C5E2A; /* Gold/amber - represents prosperity */
+  --accent-color: #1D3557; /* Deep blue - represents trust */
+  --background-color: #ffffff;
+  --text-color: #1f2937;
+}
+
+body {
+  font-family: 'Noto Sans', 'Noto Sans Arabic', sans-serif;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+.btn-primary {
+  @apply bg-teal-700 hover:bg-teal-800 text-white font-medium py-2 px-4 rounded-md transition duration-300;
+}
+
+.btn-secondary {
+  @apply bg-amber-700 hover:bg-amber-800 text-white font-medium py-2 px-4 rounded-md transition duration-300;
+}
+
+.btn-outline {
+  @apply border border-teal-700 text-teal-700 hover:bg-teal-50 font-medium py-2 px-4 rounded-md transition duration-300;
+}
+
+.container-custom {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.section-padding {
+  @apply py-12 md:py-20;
+}
+
+.card {
+  @apply bg-white rounded-lg shadow-md overflow-hidden;
+}
+
+.input-field {
+  @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent;
+}
+
+/* Islamic pattern background classes */
+.islamic-pattern-light {
+  background-color: #f8f9fa;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300736D' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.islamic-pattern-dark {
+  background-color: #00736D;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Arabic-inspired typography enhancements */
+.arabic-title {
+  @apply font-semibold tracking-wide;
+}
+
+/* Decorative divider with Islamic motif */
+.islamic-divider {
+  position: relative;
+  height: 20px;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.islamic-divider::before {
+  content: "۞"; /* Islamic decorative symbol */
+  display: inline-block;
+  position: relative;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+.islamic-divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+  z-index: -1;
+}
