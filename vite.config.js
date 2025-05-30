@@ -1,36 +1,30 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 5173,
+    port: 3000,
+    strictPort: false,
     host: true,
-    open: false,
-    hmr: {
-      protocol: 'http',
-      port: 5173,
-      overlay: true // Enable the HMR error overlay to see errors
-    }
+    open: false
   },
   preview: {
-    port: 4173,
-    host: true
+    port: 3001,
+    strictPort: false,
+    host: '0.0.0.0'
   },
-  // Re-enable optimization but with safe settings
-  optimizeDeps: {
-    disabled: false,
-    esbuildOptions: {
-      target: 'es2020'
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src')
     }
   },
   build: {
-    minify: 'terser',
-    sourcemap: true, // Enable sourcemaps for debugging
-    chunkSizeWarningLimit: 1000
-  },
-  css: {
-    devSourcemap: true // Enable CSS sourcemaps
+    outDir: 'dist',
+    assetsDir: 'assets',
+    emptyOutDir: true,
+    sourcemap: true
   }
 })

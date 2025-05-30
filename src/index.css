@@ -14,6 +14,9 @@ body {
   font-family: 'Noto Sans', 'Noto Sans Arabic', sans-serif;
   color: var(--text-color);
   background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 .btn-primary {
@@ -30,6 +33,32 @@ body {
 
 .container-custom {
   @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Adjust the main content container to be properly centered */
+main > div, 
+main > section {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 1280px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Ensure hero sections are properly centered */
+.hero-section {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.hero-section > div {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 .section-padding {
@@ -85,4 +114,32 @@ body {
   height: 1px;
   background: linear-gradient(to right, transparent, var(--primary-color), transparent);
   z-index: -1;
+}
+
+/* Fix header alignment */
+header .container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1280px;
+}
+
+/* Ensure proper centering for all pages */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Adjust footer alignment */
+footer {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+footer > div {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
 }

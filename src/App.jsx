@@ -59,58 +59,60 @@ function App() {
       <ToastContainer position="top-center" />
       <ScrollToTop />
       <Header />
-      <main className="min-h-screen">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          
-          {/* About Routes */}
-          <Route path="/about" element={<About />} />
-          <Route path="/about/our-story" element={<OurStory />} />
-          <Route path="/about/our-team" element={<OurTeam />} />
-          <Route path="/about/our-impact" element={<OurImpact />} />
-          <Route path="/about/financial-reports" element={<FinancialReports />} />
-          
-          {/* Projects Routes */}
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/projects/:id" element={<ProjectDetail />} />
-          <Route path="/projects/water" element={<WaterProjects />} />
-          <Route path="/projects/education" element={<EducationProjects />} />
-          <Route path="/projects/healthcare" element={<HealthcareProjects />} />
-          <Route path="/projects/emergency" element={<EmergencyProjects />} />
-          
-          {/* Country Routes */}
-          <Route path="/countries/palestine" element={<Palestine />} />
-          <Route path="/countries/sudan" element={<Sudan />} />
-          <Route path="/countries/somalia" element={<Somalia />} />
-          <Route path="/countries/afghanistan" element={<Afghanistan />} />
-          <Route path="/countries/syria" element={<Syria />} />
-          <Route path="/countries/lebanon" element={<Lebanon />} />
-          <Route path="/countries/pakistan" element={<Pakistan />} />
-          <Route path="/countries/bangladesh" element={<Bangladesh />} />
-          <Route path="/countries/india" element={<India />} />
-          <Route path="/countries/africa" element={<Africa />} />
-          
-          {/* Donation Routes */}
-          <Route path="/donate" element={<Donate />} />
-          <Route path="/donate/monthly" element={<MonthlyDonation />} />
-          <Route path="/donate/zakat" element={<ZakatDonation />} />
-          <Route path="/donate/sadaqah" element={<SadaqahDonation />} />
-          <Route path="/donate/emergency" element={<EmergencyDonation />} />
-          
-          {/* Get Involved Routes */}
-          <Route path="/get-involved/volunteer" element={<Volunteer />} />
-          <Route path="/get-involved/fundraise" element={<Fundraise />} />
-          <Route path="/get-involved/partner" element={<Partner />} />
-          <Route path="/get-involved/careers" element={<Careers />} />
-          
-          {/* Other Routes */}
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/cart" element={<DonationCart />} />
-          <Route path="/checkout" element={<DonationConfirmation />} />
-          <Route path="/thank-you" element={<ThankYou />} />
-          <Route path="/donor-portal" element={<DonorPortal />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+      <main className="min-h-screen w-full">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            
+            {/* About Routes */}
+            <Route path="/about" element={<About />} />
+            <Route path="/about/our-story" element={<OurStory />} />
+            <Route path="/about/our-team" element={<OurTeam />} />
+            <Route path="/about/our-impact" element={<OurImpact />} />
+            <Route path="/about/financial-reports" element={<FinancialReports />} />
+            
+            {/* Projects Routes */}
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:id" element={<ProjectDetail />} />
+            <Route path="/projects/water" element={<WaterProjects />} />
+            <Route path="/projects/education" element={<EducationProjects />} />
+            <Route path="/projects/healthcare" element={<HealthcareProjects />} />
+            <Route path="/projects/emergency" element={<EmergencyProjects />} />
+            
+            {/* Country Routes */}
+            <Route path="/countries/palestine" element={<Palestine />} />
+            <Route path="/countries/sudan" element={<Sudan />} />
+            <Route path="/countries/somalia" element={<Somalia />} />
+            <Route path="/countries/afghanistan" element={<Afghanistan />} />
+            <Route path="/countries/syria" element={<Syria />} />
+            <Route path="/countries/lebanon" element={<Lebanon />} />
+            <Route path="/countries/pakistan" element={<Pakistan />} />
+            <Route path="/countries/bangladesh" element={<Bangladesh />} />
+            <Route path="/countries/india" element={<India />} />
+            <Route path="/countries/africa" element={<Africa />} />
+            
+            {/* Donation Routes */}
+            <Route path="/donate" element={<Donate />} />
+            <Route path="/donate/monthly" element={<MonthlyDonation />} />
+            <Route path="/donate/zakat" element={<ZakatDonation />} />
+            <Route path="/donate/sadaqah" element={<SadaqahDonation />} />
+            <Route path="/donate/emergency" element={<EmergencyDonation />} />
+            
+            {/* Get Involved Routes */}
+            <Route path="/get-involved/volunteer" element={<Volunteer />} />
+            <Route path="/get-involved/fundraise" element={<Fundraise />} />
+            <Route path="/get-involved/partner" element={<Partner />} />
+            <Route path="/get-involved/careers" element={<Careers />} />
+            
+            {/* Other Routes */}
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/cart" element={<DonationCart />} />
+            <Route path="/checkout" element={<DonationConfirmation />} />
+            <Route path="/thank-you" element={<ThankYou />} />
+            <Route path="/donor-portal" element={<DonorPortal />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
       </main>
       <Footer />
     </>
