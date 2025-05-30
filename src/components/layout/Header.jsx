@@ -7,18 +7,68 @@ const Header = () => {
   const { cartItems } = useCart();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [activeSubmenu, setActiveSubmenu] = React.useState(null);
+  const [isClickTriggered, setIsClickTriggered] = React.useState(false);
+  const dropdownTimeoutRef = React.useRef(null);
+  const dropdownRef = React.useRef({});
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const toggleSubmenu = (menu) => {
+  const toggleSubmenu = (menu, event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setIsClickTriggered(true);
     setActiveSubmenu(activeSubmenu === menu ? null : menu);
+  };
+
+  const handleMouseEnter = (menu) => {
+    if (!isClickTriggered) {
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current);
+        dropdownTimeoutRef.current = null;
+      }
+      setActiveSubmenu(menu);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isClickTriggered) {
+      dropdownTimeoutRef.current = setTimeout(() => {
+        setActiveSubmenu(null);
+      }, 300);
+    }
   };
 
   const closeSubmenu = () => {
     setActiveSubmenu(null);
+    setIsClickTriggered(false);
   };
+
+  // Close dropdown when clicking outside
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isClickTriggered && activeSubmenu) {
+        let isClickInside = false;
+        
+        // Check if click is inside any dropdown
+        Object.keys(dropdownRef.current).forEach(key => {
+          if (dropdownRef.current[key] && dropdownRef.current[key].contains(event.target)) {
+            isClickInside = true;
+          }
+        });
+        
+        if (!isClickInside) {
+          closeSubmenu();
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isClickTriggered, activeSubmenu]);
 
   const menuItems = [
     {
@@ -51,6 +101,7 @@ const Header = () => {
         { name: 'Somalia', path: '/countries/somalia' },
         { name: 'Afghanistan', path: '/countries/afghanistan' },
         { name: 'Syria', path: '/countries/syria' },
+        { name: 'Yemen', path: '/countries/yemen' },
         { name: 'Lebanon', path: '/countries/lebanon' },
         { name: 'Pakistan', path: '/countries/pakistan' },
         { name: 'Bangladesh', path: '/countries/bangladesh' },
@@ -118,19 +169,29 @@ const Header = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
           {menuItems.map((item) => (
-            <div key={item.name} className="relative group" onMouseLeave={closeSubmenu}>
+            <div 
+              key={item.name} 
+              className="relative group" 
+              onMouseEnter={() => handleMouseEnter(item.name)}
+              onMouseLeave={handleMouseLeave}
+              ref={el => dropdownRef.current[item.name] = el}
+            >
               {item.submenu ? (
                 <>
                   <button 
                     className={`flex items-center text-gray-700 hover:text-primary-600 ${activeSubmenu === item.name ? 'text-primary-600 font-medium' : ''}`}
-                    onClick={() => toggleSubmenu(item.name)}
-                    onMouseEnter={() => setActiveSubmenu(item.name)}
+                    onClick={(e) => toggleSubmenu(item.name, e)}
+                    aria-expanded={activeSubmenu === item.name}
+                    aria-haspopup="true"
                   >
                     {item.name}
                     <FaChevronDown className={`ml-1 h-3 w-3 transition-transform ${activeSubmenu === item.name ? 'rotate-180' : ''}`} />
                   </button>
                   {activeSubmenu === item.name && (
-                    <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+                    <div 
+                      className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       <div className="py-1">
                         {item.submenu.map((subItem) => (
                           <Link
@@ -176,7 +237,8 @@ const Header = () => {
                     <div>
                       <button 
                         className={`flex items-center justify-between w-full text-left ${activeSubmenu === item.name ? 'text-primary-600 font-medium' : 'text-gray-700'}`}
-                        onClick={() => toggleSubmenu(item.name)}
+                        onClick={(e) => toggleSubmenu(item.name, e)}
+                        aria-expanded={activeSubmenu === item.name}
                       >
                         {item.name}
                         <FaChevronDown className={`ml-1 h-3 w-3 transition-transform ${activeSubmenu === item.name ? 'rotate-180' : ''}`} />
@@ -191,6 +253,7 @@ const Header = () => {
                               onClick={() => {
                                 setIsMenuOpen(false);
                                 setActiveSubmenu(null);
+                                setIsClickTriggered(false);
                               }}
                             >
                               {subItem.name}

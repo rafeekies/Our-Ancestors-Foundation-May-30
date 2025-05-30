@@ -1,291 +1,147 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { FaExclamationTriangle, FaHandHoldingHeart, FaGlobe, FaMapMarkerAlt } from 'react-icons/fa';
 
 const EmergencyProjects = () => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1
-  });
-
   const emergencyProjects = [
     {
-      id: 'gaza-humanitarian',
-      title: 'Gaza Humanitarian Crisis Response',
-      description: 'Providing emergency food, shelter, medical aid, and essential supplies to families affected by the ongoing crisis in Gaza.',
-      image: 'https://images.pexels.com/photos/2058128/pexels-photo-2058128.jpeg',
-      location: 'Palestine',
-      beneficiaries: 50000,
-      progress: 65
+      id: 1,
+      title: "Gaza Emergency Relief",
+      description: "Providing urgent humanitarian aid including food, water, shelter, and medical supplies to families affected by the ongoing crisis in Gaza.",
+      image: "https://images.pexels.com/photos/2079228/pexels-photo-2079228.jpeg",
+      location: "Palestine",
+      progress: 85,
+      goal: 100000,
+      raised: 85000
     },
     {
-      id: 'syria-winter',
-      title: 'Syria Winter Emergency Relief',
-      description: 'Distributing winter supplies including blankets, heaters, warm clothing, and fuel to displaced Syrian families facing harsh winter conditions.',
-      image: 'https://images.pexels.com/photos/1478524/pexels-photo-1478524.jpeg',
-      location: 'Syria',
-      beneficiaries: 35000,
-      progress: 70
+      id: 2,
+      title: "Sudan Flood Response",
+      description: "Supporting communities affected by devastating floods with emergency shelter, clean water, and essential supplies.",
+      image: "https://images.pexels.com/photos/1446076/pexels-photo-1446076.jpeg",
+      location: "Sudan",
+      progress: 70,
+      goal: 75000,
+      raised: 52500
     },
     {
-      id: 'lebanon-beirut',
-      title: 'Lebanon Crisis Response',
-      description: 'Supporting Lebanese families affected by the economic crisis and Beirut explosion with food aid, shelter rehabilitation, and livelihood support.',
-      image: 'https://images.pexels.com/photos/4386149/pexels-photo-4386149.jpeg',
-      location: 'Lebanon',
-      beneficiaries: 28000,
-      progress: 60
+      id: 3,
+      title: "Syria Earthquake Relief",
+      description: "Providing emergency assistance to families affected by earthquakes, including temporary shelter, food packages, and medical aid.",
+      image: "https://images.pexels.com/photos/53487/earthquake-collapse-destruction-building-53487.jpeg",
+      location: "Syria",
+      progress: 60,
+      goal: 80000,
+      raised: 48000
     },
     {
-      id: 'yemen-food-security',
-      title: 'Yemen Food Security Program',
-      description: 'Addressing severe food insecurity in Yemen through emergency food distributions, cash assistance, and nutrition interventions.',
-      image: 'https://images.pexels.com/photos/6647037/pexels-photo-6647037.jpeg',
-      location: 'Yemen',
-      beneficiaries: 42000,
-      progress: 55
+      id: 4,
+      title: "Afghanistan Winter Emergency",
+      description: "Distributing winter supplies including blankets, warm clothing, heating fuel, and food packages to vulnerable families facing harsh winter conditions.",
+      image: "https://images.pexels.com/photos/3889843/pexels-photo-3889843.jpeg",
+      location: "Afghanistan",
+      progress: 75,
+      goal: 60000,
+      raised: 45000
     },
     {
-      id: 'afghanistan-displacement',
-      title: 'Afghanistan Displacement Response',
-      description: 'Providing emergency assistance to internally displaced families in Afghanistan, including shelter, food, and protection services.',
-      image: 'https://images.pexels.com/photos/1478441/pexels-photo-1478441.jpeg',
-      location: 'Afghanistan',
-      beneficiaries: 30000,
-      progress: 45
+      id: 5,
+      title: "Somalia Drought Response",
+      description: "Providing emergency water supplies, food assistance, and livestock support to communities affected by severe drought.",
+      image: "https://images.pexels.com/photos/2449452/pexels-photo-2449452.jpeg",
+      location: "Somalia",
+      progress: 65,
+      goal: 70000,
+      raised: 45500
     },
     {
-      id: 'sudan-floods',
-      title: 'Sudan Flood Emergency Response',
-      description: 'Supporting communities affected by devastating floods in Sudan with emergency shelter, clean water, and disease prevention measures.',
-      image: 'https://images.pexels.com/photos/1756381/pexels-photo-1756381.jpeg',
-      location: 'Sudan',
-      beneficiaries: 25000,
-      progress: 75
-    },
-    {
-      id: 'somalia-drought',
-      title: 'Somalia Drought Relief',
-      description: 'Responding to severe drought in Somalia with water trucking, livestock support, cash assistance, and malnutrition treatment.',
-      image: 'https://images.pexels.com/photos/1233414/pexels-photo-1233414.jpeg',
-      location: 'Somalia',
-      beneficiaries: 38000,
-      progress: 50
-    },
-    {
-      id: 'pakistan-floods',
-      title: 'Pakistan Flood Recovery',
-      description: 'Supporting recovery efforts for communities affected by catastrophic flooding in Pakistan, including shelter reconstruction and livelihood restoration.',
-      image: 'https://images.pexels.com/photos/1446076/pexels-photo-1446076.jpeg',
-      location: 'Pakistan',
-      beneficiaries: 45000,
-      progress: 40
+      id: 6,
+      title: "Lebanon Crisis Response",
+      description: "Supporting vulnerable families affected by the economic crisis with food packages, medical assistance, and educational support.",
+      image: "https://images.pexels.com/photos/3683056/pexels-photo-3683056.jpeg",
+      location: "Lebanon",
+      progress: 50,
+      goal: 65000,
+      raised: 32500
     }
   ];
+
+  const fadeIn = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
 
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-amber-600 text-white">
-        <div className="absolute inset-0 opacity-20">
-          <div className="islamic-pattern-dark absolute inset-0"></div>
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.h1 
-              className="text-4xl md:text-5xl font-bold mb-6 arabic-title"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              Emergency Response Projects
-            </motion.h1>
-            <motion.p 
-              className="text-xl mb-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              Providing rapid humanitarian assistance to communities facing acute crises in Palestine, Syria, Lebanon, Yemen, Afghanistan, Sudan, Somalia, and Pakistan.
-            </motion.p>
-            <motion.div
-              className="flex flex-col sm:flex-row justify-center gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              <Link to="/donate?category=emergency" className="bg-white text-amber-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-full transition duration-300">
-                Support Emergency Response
-              </Link>
-              <a href="#projects" className="bg-transparent hover:bg-white/20 text-white border-2 border-white font-bold py-3 px-8 rounded-full transition duration-300">
-                View Projects
-              </a>
-            </motion.div>
-          </div>
+      <section className="relative h-[40vh] flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: 'url(https://images.pexels.com/photos/2079228/pexels-photo-2079228.jpeg)' }}>
+        <div className="absolute inset-0 bg-black opacity-60"></div>
+        <div className="container mx-auto px-4 z-10 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 arabic-title">Emergency Projects</h1>
+          <p className="text-xl text-white max-w-3xl mx-auto">
+            Providing rapid humanitarian assistance to communities affected by conflicts, natural disasters, and other emergencies.
+          </p>
         </div>
       </section>
 
-      {/* Emergency Crisis Overview */}
-      <section className="py-16 bg-white">
+      {/* Stats Section */}
+      <section className="py-12 bg-primary-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 arabic-title">The Humanitarian Emergency Crisis</h2>
-              <div className="islamic-divider mx-auto mb-6"></div>
-              <p className="text-lg text-gray-600">
-                Millions of people in Muslim-majority countries face life-threatening emergencies due to conflict, natural disasters, and economic collapse, requiring immediate humanitarian assistance.
-              </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="text-4xl font-bold text-primary-600 mb-2">15+</div>
+              <p className="text-xl text-gray-700">Active Emergency Responses</p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-              <div className="bg-amber-50 p-6 rounded-lg text-center">
-                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <FaExclamationTriangle className="text-amber-600 text-2xl" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-800 mb-2">274 Million</h3>
-                <p className="text-gray-700">
-                  People worldwide need humanitarian assistance, with a significant proportion in Muslim-majority countries affected by protracted crises.
-                </p>
-              </div>
-              
-              <div className="bg-amber-50 p-6 rounded-lg text-center">
-                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <FaHandHoldingHeart className="text-amber-600 text-2xl" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-800 mb-2">45 Million</h3>
-                <p className="text-gray-700">
-                  People are on the brink of famine in 43 countries, with Yemen, Afghanistan, and Somalia facing the most severe food insecurity.
-                </p>
-              </div>
-              
-              <div className="bg-amber-50 p-6 rounded-lg text-center">
-                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <FaGlobe className="text-amber-600 text-2xl" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-800 mb-2">100 Million</h3>
-                <p className="text-gray-700">
-                  People have been forcibly displaced worldwide, with Muslim-majority countries both generating and hosting large refugee populations.
-                </p>
-              </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="text-4xl font-bold text-primary-600 mb-2">200,000+</div>
+              <p className="text-xl text-gray-700">People Assisted</p>
             </div>
             
-            <div className="prose max-w-none">
-              <p className="text-lg mb-4">
-                The scale of humanitarian emergencies affecting Muslim communities globally is unprecedented. Protracted conflicts in Syria, Yemen, and Palestine; natural disasters exacerbated by climate change; and economic collapse in countries like Lebanon and Afghanistan have created complex, overlapping crises that require immediate response.
-              </p>
-              
-              <p className="text-lg mb-4">
-                Our Ancestors Foundation mobilizes rapidly to provide life-saving assistance during emergencies while also building resilience to future shocks. Our emergency response teams are on the ground in multiple crisis zones, delivering food, shelter, clean water, medical care, and protection services to those most in need.
-              </p>
-              
-              <p className="text-lg mb-8">
-                Islamic teachings emphasize the urgency of responding to those in distress. The Prophet Muhammad (peace be upon him) said, "The believer's shade on the Day of Resurrection will be his charity." By supporting our emergency response projects, you're providing immediate relief to those facing life-threatening situations while fulfilling a core Islamic value.
-              </p>
-              
-              <blockquote className="bg-amber-50 p-6 rounded-lg italic text-gray-700 border-l-4 border-amber-500">
-                "And they give food in spite of their love for it to the poor, the orphan, and the captive, [saying], 'We feed you only for the countenance of Allah. We wish not from you reward or gratitude.'" (Quran 76:8-9)
-              </blockquote>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="text-4xl font-bold text-primary-600 mb-2">8+</div>
+              <p className="text-xl text-gray-700">Countries Reached</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Our Approach */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 arabic-title">Our Approach</h2>
-              <div className="islamic-divider mx-auto mb-6"></div>
-              <p className="text-lg text-gray-600">
-                We implement rapid, effective, and dignified emergency responses that address immediate needs while laying the groundwork for recovery and resilience.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-bold text-gray-800 mb-4">Rapid Response</h3>
-                <p className="text-gray-700 mb-4">
-                  We maintain emergency response teams and pre-positioned supplies in strategic locations, allowing us to mobilize within hours of a crisis. Our local presence in multiple countries enables us to access affected communities quickly, even in complex security environments.
-                </p>
-                <p className="text-gray-700">
-                  Our emergency assessment teams use digital data collection tools to rapidly identify needs and vulnerabilities, ensuring aid reaches those who need it most urgently.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-bold text-gray-800 mb-4">Comprehensive Assistance</h3>
-                <p className="text-gray-700 mb-4">
-                  Our emergency response packages address multiple dimensions of human needs: food security, shelter, clean water, healthcare, protection, and psychosocial support. We recognize that emergencies affect different groups in different ways and tailor our assistance accordingly.
-                </p>
-                <p className="text-gray-700">
-                  Where possible, we use cash and voucher assistance to allow affected families to meet their needs with dignity and support local markets.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-bold text-gray-800 mb-4">Local Partnership</h3>
-                <p className="text-gray-700 mb-4">
-                  We work through and with local organizations and community structures, recognizing that they are often the first responders and have the best understanding of local contexts. Our approach strengthens local capacity for both immediate response and future emergencies.
-                </p>
-                <p className="text-gray-700">
-                  We engage affected communities in all aspects of our response, from needs assessment to program design and monitoring, ensuring accountability and relevance.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-bold text-gray-800 mb-4">Linking Relief to Recovery</h3>
-                <p className="text-gray-700 mb-4">
-                  Even in the acute phase of an emergency, we design our interventions with an eye toward recovery and long-term resilience. Our emergency programs include elements that support the transition to sustainable solutions, such as livelihood recovery, infrastructure rehabilitation, and capacity building.
-                </p>
-                <p className="text-gray-700">
-                  We advocate for policy changes that address the root causes of crises and reduce vulnerability to future emergencies.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section id="projects" ref={ref} className="py-16 bg-white">
+      {/* Projects Grid */}
+      <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 arabic-title">Current Emergency Projects</h2>
-            <div className="islamic-divider mx-auto mb-6"></div>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Explore our ongoing emergency response initiatives across Palestine, Syria, Lebanon, Yemen, Afghanistan, Sudan, Somalia, and Pakistan.
+            <h2 className="text-3xl font-bold text-gray-800 mb-4 arabic-title">Current Emergency Projects</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Explore our ongoing emergency response initiatives and see how your support can help provide immediate relief to those in desperate need.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {emergencyProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              visible: { transition: { staggerChildren: 0.1 } }
+            }}
+          >
+            {emergencyProjects.map(project => (
+              <motion.div 
+                key={project.id} 
                 className="bg-white rounded-lg overflow-hidden shadow-md"
+                variants={fadeIn}
               >
-                <div className="h-48 relative overflow-hidden">
-                  <img 
-                    src={project.image} 
-                    alt={project.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                  />
-                  <div className="absolute top-4 left-4 bg-amber-600 text-white text-xs font-semibold px-2 py-1 rounded">
-                    Emergency Response
-                  </div>
-                </div>
+                <img src={project.image} alt={project.title} className="w-full h-56 object-cover" />
                 <div className="p-6">
-                  <div className="flex items-center mb-2">
-                    <FaMapMarkerAlt className="text-amber-600 mr-2" />
-                    <span className="text-sm text-gray-600">{project.location}</span>
+                  <div className="flex justify-between items-start mb-3">
+                    <span className="inline-block px-3 py-1 bg-orange-100 text-orange-800 text-xs font-semibold rounded-full">
+                      Emergency
+                    </span>
+                    <span className="inline-block px-3 py-1 bg-gray-100 text-gray-800 text-xs font-semibold rounded-full">
+                      {project.location}
+                    </span>
                   </div>
                   <h3 className="text-xl font-bold text-gray-800 mb-3">{project.title}</h3>
-                  <p className="text-gray-600 mb-4 line-clamp-3">{project.description}</p>
+                  <p className="text-gray-600 mb-4">{project.description}</p>
                   
                   <div className="mb-4">
                     <div className="flex justify-between mb-1">
@@ -294,19 +150,21 @@ const EmergencyProjects = () => {
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2.5">
                       <div 
-                        className="bg-amber-600 h-2.5 rounded-full" 
+                        className="bg-orange-600 h-2.5 rounded-full" 
                         style={{ width: `${project.progress}%` }}
                       ></div>
                     </div>
-                    <div className="mt-2 text-sm text-gray-600">
-                      {project.beneficiaries.toLocaleString()} people will benefit
-                    </div>
+                  </div>
+                  
+                  <div className="flex justify-between text-sm text-gray-600 mb-4">
+                    <span>Raised: ${project.raised.toLocaleString()}</span>
+                    <span>Goal: ${project.goal.toLocaleString()}</span>
                   </div>
                   
                   <div className="flex justify-between items-center">
                     <Link 
                       to={`/projects/${project.id}`} 
-                      className="text-amber-600 font-medium hover:text-amber-700 flex items-center"
+                      className="text-primary-600 font-medium hover:text-primary-700 flex items-center"
                     >
                       Learn More
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
@@ -314,52 +172,147 @@ const EmergencyProjects = () => {
                       </svg>
                     </Link>
                     <Link 
-                      to={`/donate?project=${project.id}`} 
-                      className="bg-amber-600 hover:bg-amber-700 text-white text-sm font-medium py-2 px-4 rounded transition-colors"
+                      to="/donate/emergency" 
+                      className="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded transition duration-300"
                     >
-                      Support
+                      Donate Now
                     </Link>
                   </div>
                 </div>
               </motion.div>
             ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Emergency Response Process */}
+      <section className="py-16 bg-orange-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-800 mb-4 arabic-title">Our Emergency Response Process</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              We follow a structured approach to ensure rapid and effective emergency response when disasters strike.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-md text-center">
+              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">1. Assessment</h3>
+              <p className="text-gray-600">
+                Rapid assessment of the situation to understand the scale of the emergency and identify immediate needs.
+              </p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-md text-center">
+              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">2. Planning</h3>
+              <p className="text-gray-600">
+                Developing a strategic response plan based on the assessment findings and available resources.
+              </p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-md text-center">
+              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">3. Response</h3>
+              <p className="text-gray-600">
+                Implementing the emergency response plan, providing immediate relief and assistance to affected communities.
+              </p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-md text-center">
+              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">4. Recovery</h3>
+              <p className="text-gray-600">
+                Supporting long-term recovery efforts to help communities rebuild and become more resilient to future emergencies.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Impact Story */}
+      {/* Impact Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-800 mb-6 arabic-title">The Impact of Emergency Response</h2>
+              <p className="text-lg text-gray-600 mb-6">
+                Timely emergency response can make the difference between life and death for communities affected by disasters:
+              </p>
+              <ul className="space-y-4">
+                <li className="flex items-start">
+                  <svg className="h-6 w-6 text-orange-600 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="text-gray-700"><strong>Immediate Relief:</strong> Providing essential supplies like food, water, and shelter to meet basic needs</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="h-6 w-6 text-orange-600 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="text-gray-700"><strong>Medical Assistance:</strong> Treating injuries and preventing disease outbreaks in emergency situations</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="h-6 w-6 text-orange-600 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="text-gray-700"><strong>Protection:</strong> Ensuring the safety and security of vulnerable populations, especially women and children</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="h-6 w-6 text-orange-600 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="text-gray-700"><strong>Hope and Dignity:</strong> Restoring hope and dignity to affected communities during their most difficult times</span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <img 
+                src="https://images.pexels.com/photos/6647037/pexels-photo-6647037.jpeg" 
+                alt="Emergency response impact" 
+                className="rounded-lg shadow-xl"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonial */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-6 arabic-title">Emergency Aid When It Matters Most</h2>
-                <div className="w-20 h-1 bg-amber-600 mb-6"></div>
-                <p className="text-gray-700 mb-4">
-                  When the bombing intensified in Gaza, Um Ahmad and her five children were forced to flee their home with only the clothes on their backs. They found temporary shelter in a school that was already overcrowded with hundreds of other displaced families.
-                </p>
-                <p className="text-gray-700 mb-4">
-                  "We had no food, no clean water, no blankets, nothing," Um Ahmad recalls. "My children were terrified and hungry. I didn't know how we would survive."
-                </p>
-                <p className="text-gray-700 mb-4">
-                  Within days, our emergency response team reached the school with essential supplies. Um Ahmad's family received emergency food parcels, hygiene kits, blankets, and clean water. Our medical team also provided care for her youngest son, who was suffering from respiratory problems.
-                </p>
-                <p className="text-gray-700 mb-6">
-                  "The aid came when we had lost all hope," says Um Ahmad. "It wasn't just the supplies that mattered, but knowing that someone cared about our suffering. The volunteers treated us with respect and compassion during the darkest time of our lives."
-                </p>
-                <Link to="/stories/um-ahmad" className="text-amber-600 font-medium hover:text-amber-700 flex items-center w-fit">
-                  Read Um Ahmad's full story
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                </Link>
-              </div>
-              <div>
-                <img 
-                  src="https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg" 
-                  alt="Humanitarian aid distribution" 
-                  className="rounded-lg shadow-lg w-full h-auto"
-                />
+          <div className="max-w-4xl mx-auto text-center">
+            <svg className="w-12 h-12 text-primary-400 mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+            </svg>
+            <blockquote className="text-2xl font-medium text-gray-700 mb-8">
+              "When the earthquake destroyed our home, we lost everything. The emergency team arrived within days with tents, blankets, and food. They gave us hope when we had none. My children still talk about the kind volunteers who helped us through our darkest days."
+            </blockquote>
+            <div className="flex items-center justify-center">
+              <img 
+                src="https://images.pexels.com/photos/3771089/pexels-photo-3771089.jpeg" 
+                alt="Testimonial" 
+                className="w-16 h-16 rounded-full object-cover mr-4"
+              />
+              <div className="text-left">
+                <p className="font-bold text-gray-800">Ahmed Khalil</p>
+                <p className="text-gray-600">Father, Syria</p>
               </div>
             </div>
           </div>
@@ -367,21 +320,18 @@ const EmergencyProjects = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 bg-amber-600 text-white">
-        <div className="absolute inset-0 opacity-20">
-          <div className="islamic-pattern-dark absolute inset-0"></div>
-        </div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 arabic-title">Help Us Respond to Emergencies</h2>
+      <section className="py-16 bg-primary-600 text-white islamic-pattern-dark">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-6 arabic-title">Help Those in Crisis</h2>
           <p className="text-xl max-w-3xl mx-auto mb-8">
-            Your donation can provide immediate relief to families facing life-threatening emergencies. When disaster strikes, your support ensures we can respond quickly and effectively.
+            Your emergency donation can provide immediate relief to families affected by disasters and conflicts. Every minute counts in an emergency.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link to="/donate?category=emergency" className="bg-white text-amber-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-full transition duration-300">
-              Support Emergency Response
+            <Link to="/donate/emergency" className="bg-white hover:bg-gray-100 text-primary-600 font-bold py-3 px-8 rounded-full transition duration-300">
+              Donate Now
             </Link>
-            <Link to="/get-involved/fundraise" className="bg-transparent hover:bg-white/20 text-white border-2 border-white font-bold py-3 px-8 rounded-full transition duration-300">
-              Start an Emergency Fundraiser
+            <Link to="/get-involved/volunteer" className="bg-transparent hover:bg-primary-700 border-2 border-white text-white font-bold py-3 px-8 rounded-full transition duration-300">
+              Get Involved
             </Link>
           </div>
         </div>

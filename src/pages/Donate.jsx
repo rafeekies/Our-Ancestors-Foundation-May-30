@@ -13,6 +13,7 @@ const Donate = () => {
   const [isRecurring, setIsRecurring] = React.useState(false);
   const [recurringFrequency, setRecurringFrequency] = React.useState('monthly');
   const [isHonorGift, setIsHonorGift] = React.useState(false);
+  const [tributeType, setTributeType] = React.useState('honor'); // 'honor' or 'memory'
   const [honoreeInfo, setHonoreeInfo] = React.useState({
     name: '',
     email: '',
@@ -68,6 +69,7 @@ const Donate = () => {
       recurring: isRecurring,
       frequency: isRecurring ? recurringFrequency : null,
       isHonorGift: isHonorGift,
+      tributeType: isHonorGift ? tributeType : null,
       honoreeInfo: isHonorGift ? honoreeInfo : null
     };
 
@@ -251,9 +253,38 @@ const Donate = () => {
                   
                   {isHonorGift && (
                     <div className="ml-6 mt-3 space-y-4">
+                      <div className="flex space-x-4 mb-2">
+                        <div className="flex items-center">
+                          <input
+                            id="inHonorOf"
+                            type="radio"
+                            value="honor"
+                            checked={tributeType === 'honor'}
+                            onChange={() => setTributeType('honor')}
+                            className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                          />
+                          <label htmlFor="inHonorOf" className="ml-2 text-gray-700">
+                            In Honor Of
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="inMemoryOf"
+                            type="radio"
+                            value="memory"
+                            checked={tributeType === 'memory'}
+                            onChange={() => setTributeType('memory')}
+                            className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                          />
+                          <label htmlFor="inMemoryOf" className="ml-2 text-gray-700">
+                            In Memory Of
+                          </label>
+                        </div>
+                      </div>
+                      
                       <div>
                         <label htmlFor="honoreeName" className="block text-sm font-medium text-gray-700 mb-1">
-                          Honoree's Name
+                          {tributeType === 'honor' ? "Honoree's Name" : "In Memory of"}
                         </label>
                         <input
                           type="text"
@@ -266,7 +297,7 @@ const Donate = () => {
                       </div>
                       <div>
                         <label htmlFor="honoreeEmail" className="block text-sm font-medium text-gray-700 mb-1">
-                          Honoree's Email (optional)
+                          {tributeType === 'honor' ? "Honoree's Email (optional)" : "Family Email (optional)"}
                         </label>
                         <input
                           type="email"
@@ -320,7 +351,9 @@ const Donate = () => {
                     )}
                     {isHonorGift && honoreeInfo.name && (
                       <div className="flex justify-between">
-                        <span className="text-gray-600">In honor of:</span>
+                        <span className="text-gray-600">
+                          {tributeType === 'honor' ? 'In honor of:' : 'In memory of:'}
+                        </span>
                         <span className="font-medium text-gray-800">{honoreeInfo.name}</span>
                       </div>
                     )}
@@ -359,7 +392,7 @@ const Donate = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
             <div className="bg-white p-6 rounded-lg shadow-md">
               <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -415,6 +448,27 @@ const Donate = () => {
                 <a href="mailto:legacy@ourancestorsfoundation.org" className="text-green-600 hover:text-green-700">
                   legacy@ourancestorsfoundation.org
                 </a>
+              </p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Zelle</h3>
+              <p className="text-gray-600 mb-4">
+                Send your donation quickly and securely using Zelle.
+              </p>
+              <p className="text-gray-700">
+                Use our email address to send your donation:
+              </p>
+              <p className="text-gray-700 mt-2 font-medium">
+                donate@ourancestorsfoundation.org
+              </p>
+              <p className="text-gray-600 mt-2 text-sm">
+                Please include your name and "donation" in the memo.
               </p>
             </div>
           </div>
